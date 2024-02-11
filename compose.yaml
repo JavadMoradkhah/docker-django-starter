@@ -1,0 +1,57 @@
+services:
+  server:
+    build: ./server
+    restart: on-failure
+    ports:
+      - 8000:8000
+    networks:
+      - app-network
+    secrets:
+      - db-password
+    env_file: ./server/.env.dev
+    environment:
+      DB_PASSWORD_FILE: /run/secrets/db-password
+    volumes:
+      - ./server:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16.1-alpine3.19
+    restart: always
+    env_file: ./server/.env.dev
+    secrets:
+      - db-password
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+    user: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    expose:
+      - 5432
+    healthcheck:
+      test: ['CMD', 'pg_isready']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+
+secrets:
+  db-password:
+    file: ./secrets/db/password.txt
