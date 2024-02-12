@@ -2,11 +2,14 @@
 This repository has been created to easily start dockerizing Django projects
 
 ### Server Dependencies
-- Python: v3.12.2 slim
-- Database: Postgres v16.1 alpine3.19
-- Django: v4.2.9
-- psycopg: v3.1.18
-- Webserver: nginx v1.25.3
+| # | Dependency | Version | Image Type |
+|---|------------|---------|------------|
+| Language | Python | v3.12.2 | slim |
+| Framework | Django | v4.2.9 | |
+| Database | Postgres | v16.1 | alpine3.19 |
+| Database Driver | psycopg | v3.1.18 | |
+| WSGI Server | Gunicorn | 21.2.0 | |
+| Webserver | nginx | v1.25.3 | |
 
 ### Start Development Containers
 ```
