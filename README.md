@@ -9,7 +9,7 @@ This repository has been created to easily start dockerizing Django projects
 | Database | Postgres | v16.1 | alpine3.19 |
 | Database Driver | psycopg | v3.1.18 | |
 | WSGI Server | Gunicorn | 21.2.0 | |
-| Webserver | nginx | v1.25.3 | |
+| Web Server | nginx | v1.25.3 | |
 
 ### Start Development Containers
 ```
