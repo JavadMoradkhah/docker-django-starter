@@ -6,6 +6,7 @@ This repository has been created to easily start dockerizing Django projects
 - Database: Postgres v16.1 alpine3.19
 - Django: v4.2.9
 - psycopg: v3.1.18
+- Webserver: nginx v1.25.3
 
 ### Start Development Containers
 ```
@@ -33,7 +34,7 @@ docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py colle
 
 2. Create a Superuser
 ```shell
-docker compose -f compose.prod.yaml exec server python manage.py createsuperuser
+docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py createsuperuser
 ```
 
 ## Start Production Containers
