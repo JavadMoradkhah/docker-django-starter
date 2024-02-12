@@ -30,14 +30,14 @@ echo THE_DATABASE_PASSWORD > ./secrets/db/password.txt
 docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py migrate
 ```
 
-2. Collect Static Files
-```shell
-docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py collectstatic
-```
-
 2. Create a Superuser
 ```shell
 docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py createsuperuser
+```
+
+3. Collect Static Files
+```shell
+docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py collectstatic
 ```
 
 ## Start Production Containers
