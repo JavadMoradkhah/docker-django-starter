@@ -24,6 +24,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 # For example: DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,[::1]
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(",")
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
