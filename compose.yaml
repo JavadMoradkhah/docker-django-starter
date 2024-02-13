@@ -1,6 +1,6 @@
 services:
-  server:
-    build: ./server
+  web:
+    build: ./web
     restart: on-failure
     ports:
       - 8000:8000
@@ -8,11 +8,11 @@ services:
       - app-network
     secrets:
       - db-password
-    env_file: ./server/.env.dev
+    env_file: ./web/.env.dev
     environment:
       DB_PASSWORD_FILE: /run/secrets/db-password
     volumes:
-      - ./server:/app
+      - ./web:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     depends_on:
@@ -22,7 +22,7 @@ services:
   db:
     image: postgres:16.1-alpine3.19
     restart: always
-    env_file: ./server/.env.dev
+    env_file: ./web/.env.dev
     secrets:
       - db-password
     environment:

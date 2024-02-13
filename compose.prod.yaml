@@ -1,7 +1,7 @@
 services:
-  server:
+  web:
     build:
-      context: ./server
+      context: ./web
       dockerfile: Dockerfile.prod
     restart: on-failure
     expose:
@@ -10,7 +10,7 @@ services:
       - app-network
     secrets:
       - db-password
-    env_file: ./server/.env.prod
+    env_file: ./web/.env.prod
     environment:
       DB_PASSWORD_FILE: /run/secrets/db-password
     volumes:
@@ -24,7 +24,7 @@ services:
   db:
     image: postgres:16.1-alpine3.19
     restart: always
-    env_file: ./server/.env.prod
+    env_file: ./web/.env.prod
     secrets:
       - db-password
     environment:
@@ -58,7 +58,7 @@ services:
     ports:
       - 1337:80
     depends_on:
-      - server
+      - web
     networks:
       - app-network
 
