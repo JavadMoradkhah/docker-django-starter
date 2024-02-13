@@ -14,6 +14,11 @@ def get_secret(key, default=None):
     return value
 
 
+def split_env(var_name, separator, default):
+    value = os.environ.get(var_name)
+    return value.split(separator) if value is not None else default
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
@@ -22,9 +27,11 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a comma between each.
 # For example: DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,[::1]
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = split_env("DJANGO_ALLOWED_HOSTS", ',', [])
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+# 'DJANGO_CSRF_TRUSTED_ORIGINS' should be a single string of hosts with a comma between each.
+# For example: DJANGO_CSRF_TRUSTED_ORIGINS=localhost,127.0.0.1
+CSRF_TRUSTED_ORIGINS = split_env("DJANGO_CSRF_TRUSTED_ORIGINS", ',', [])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
