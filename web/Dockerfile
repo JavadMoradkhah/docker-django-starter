@@ -34,8 +34,6 @@ RUN python -m pip install -r requirements.txt
 RUN mkdir ./staticfiles/ && chown -R app:app ./staticfiles/
 RUN mkdir ./mediafiles/ && chown -R app:app ./mediafiles/
 
-RUN touch ./app_logs.log && chown app:app ./app_logs.log
-
 # Switch to the non-privileged user to run the application.
 USER appuser
 
