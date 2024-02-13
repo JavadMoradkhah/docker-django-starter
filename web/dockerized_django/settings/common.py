@@ -1,37 +1,11 @@
 import os
 from pathlib import Path
+from .utils import env_file
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-def get_secret(key, default=None):
-    value = os.getenv(key, default) if default is not None else os.getenv(key)
-
-    if os.path.isfile(value):
-        with open(value) as f:
-            return f.read()
-
-    return value
-
-
-def split_env(var_name, separator, default):
-    value = os.environ.get(var_name)
-    return value.split(separator) if value is not None else default
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
-
-# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a comma between each.
-# For example: DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,[::1]
-ALLOWED_HOSTS = split_env("DJANGO_ALLOWED_HOSTS", ',', [])
-
-# 'DJANGO_CSRF_TRUSTED_ORIGINS' should be a single string of hosts with a comma between each.
-# For example: DJANGO_CSRF_TRUSTED_ORIGINS=localhost,127.0.0.1
-CSRF_TRUSTED_ORIGINS = split_env("DJANGO_CSRF_TRUSTED_ORIGINS", ',', [])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,10 +54,9 @@ DATABASES = {
         "USER": os.environ.get('DB_USER', 'postgres'),
         "HOST": os.environ.get('DB_HOST', '127.0.0.1'),
         "PORT": os.environ.get('DB_PORT', '5432'),
-        "PASSWORD": get_secret('DB_PASSWORD_FILE')
+        "PASSWORD": env_file('DB_PASSWORD_FILE')
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -112,25 +85,12 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'class': 'logging.Filehandler',
-            'filename': BASE_DIR / 'app_logs.log'
-        }
-    },
-    'loggers': {
-        '': {
-            'handlers': ['file'],
-            'level': os.environ.get('DJANGO_LOG_LEVEL', default='ERROR')
-        }
-    }
-}
