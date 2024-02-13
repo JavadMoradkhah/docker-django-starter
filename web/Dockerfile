@@ -22,7 +22,7 @@ RUN adduser \
     --shell "/sbin/nologin" \
     --no-create-home \
     --uid "${UID}" \
-    appuser
+    app
 
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 RUN --mount=type=cache,target=/root/.cache/pip
@@ -35,7 +35,7 @@ RUN mkdir ./staticfiles/ && chown -R app:app ./staticfiles/
 RUN mkdir ./mediafiles/ && chown -R app:app ./mediafiles/
 
 # Switch to the non-privileged user to run the application.
-USER appuser
+USER app
 
 # Copy the source code into the container.
 COPY . .
