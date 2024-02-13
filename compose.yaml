@@ -13,6 +13,8 @@ services:
       DB_PASSWORD_FILE: /run/secrets/db-password
     volumes:
       - ./server:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
     depends_on:
       db:
         condition: service_healthy
@@ -48,6 +50,8 @@ services:
 
 volumes:
   db-data:
+  static_volume:
+  media_volume:
 
 networks:
   app-network:
