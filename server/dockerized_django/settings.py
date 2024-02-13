@@ -117,3 +117,20 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'class': 'logging.Filehandler',
+            'filename': BASE_DIR / 'app_logs.log'
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', default='ERROR')
+        }
+    }
+}
