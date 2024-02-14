@@ -22,7 +22,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'class': 'logging.Filehandler',
+            'class': 'logging.FileHandler',
             'filename': BASE_DIR / 'app_logs.log'
         }
     },
