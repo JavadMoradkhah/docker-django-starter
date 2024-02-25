@@ -50,7 +50,7 @@ services:
       - app-network
 
   nginx:
-    build: ./nginx
+    image: nginx:1.25.3
     volumes:
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
