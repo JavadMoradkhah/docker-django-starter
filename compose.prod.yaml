@@ -52,6 +52,7 @@ services:
   nginx:
     image: nginx:1.25.3
     container_name: nginx
+    command: nginx -g 'daemon off;'
     volumes:
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
