@@ -23,7 +23,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'app_logs.log'
+            'filename': os.path.join(BASE_DIR, 'app_logs.log')
         }
     },
     'loggers': {
