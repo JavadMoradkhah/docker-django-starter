@@ -64,11 +64,6 @@ services:
     networks:
       - app-network
 
-volumes:
-  db-data:
-  static_volume:
-  media_volume:
-
 networks:
   app-network:
 
