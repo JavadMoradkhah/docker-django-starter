@@ -28,9 +28,10 @@ services:
       - db-password
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+      PGDATA: /var/lib/postgresql/data/pgdata
     user: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./db-data:/var/lib/postgresql/data
     networks:
       - app-network
     expose:
