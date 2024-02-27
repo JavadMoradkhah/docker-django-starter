@@ -14,8 +14,8 @@ services:
     environment:
       DB_PASSWORD_FILE: /run/secrets/db-password
     volumes:
-      - static_volume:/app/staticfiles
-      - media_volume:/app/mediafiles
+      - ./web/staticfiles:/app/staticfiles
+      - ./web/mediafiles:/app/mediafiles
     depends_on:
       db:
         condition: service_healthy
