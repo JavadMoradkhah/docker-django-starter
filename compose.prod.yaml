@@ -56,8 +56,7 @@ services:
     command: nginx -g 'daemon off;'
     restart: always
     volumes:
-      - static_volume:/app/staticfiles
-      - media_volume:/app/mediafiles
+      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 1337:80
     depends_on:
