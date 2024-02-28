@@ -1,7 +1,7 @@
 services:
-  web:
+  server:
     build:
-      context: ./web
+      context: ./server
       dockerfile: Dockerfile.prod
     restart: on-failure
     expose:
@@ -10,12 +10,12 @@ services:
       - app-network
     secrets:
       - db-password
-    env_file: ./web/.env.prod
+    env_file: ./server/.env.prod
     environment:
       DB_PASSWORD_FILE: /run/secrets/db-password
     volumes:
-      - ./web/staticfiles:/app/staticfiles
-      - ./web/mediafiles:/app/mediafiles
+      - ./server/staticfiles:/app/staticfiles
+      - ./server/mediafiles:/app/mediafiles
     depends_on:
       db:
         condition: service_healthy
@@ -23,7 +23,7 @@ services:
   db:
     image: postgres:16.1-alpine3.19
     restart: always
-    env_file: ./web/.env.prod
+    env_file: ./server/.env.prod
     secrets:
       - db-password
     environment:
@@ -57,12 +57,12 @@ services:
     restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./web/staticfiles:/usr/share/nginx/html/static
-      - ./web/mediafiles:/usr/share/nginx/html/media
+      - ./server/staticfiles:/usr/share/nginx/html/static
+      - ./server/mediafiles:/usr/share/nginx/html/media
     ports:
       - 1337:80
     depends_on:
-      - web
+      - server
     networks:
       - app-network
 
