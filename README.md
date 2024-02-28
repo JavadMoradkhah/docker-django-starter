@@ -25,8 +25,6 @@ docker compose up [--build]
 echo THE_DATABASE_PASSWORD > ./secrets/db/password.txt
 ```
 
-> **Note:** always remember to remove the secret files on production
-
 <br/>
 
 ## Production Setup
@@ -34,19 +32,19 @@ echo THE_DATABASE_PASSWORD > ./secrets/db/password.txt
 1. Migrate The Database
 
 ```shell
-docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py migrate
+docker compose -f compose.prod.yaml exec <CONTAINER_ID> python manage.py migrate
 ```
 
 2. Create a Superuser
 
 ```shell
-docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py createsuperuser
+docker compose -f compose.prod.yaml exec -it <CONTAINER_ID> python manage.py createsuperuser
 ```
 
 3. Collect Static Files
 
 ```shell
-docker compose -f compose.prod.yaml exec <CONTAINER_NAME> python manage.py collectstatic --no-input
+docker compose -f compose.prod.yaml exec <CONTAINER_ID> python manage.py collectstatic --no-input
 ```
 
 ## Start Production Containers
